@@ -1,13 +1,14 @@
 const {router} = require('../src/router');
 const supertest = require('supertest');
 
-const endpoints = [
-    {url: ['/', '/main'], statuscode: 200, header: {"content-Type" : /html/}},
-    {url: ['/invalid'], statuscode: 404, header:{ "content-Type" : /html/}},
-    {url:['/getList'], statuscode: 200, header: { "content-Type": /json/}},
-    {url: ['/getResult'], statuscode: 200, header: {"content-Type": /json/}},
-    {url: ['/js/main.js', '/css/style.css', 'js/functions.js'], statuscode: 200} 
-];
+// const endpoints = [
+//     {url: ['/', '/main'], statuscode: 200, header: {"content-Type" : /html/}},
+//     {url: ['/invalid'], statuscode: 404, header:{ "content-Type" : /html/}},
+//     {url:['/getList'], statuscode: 200, header: { "content-Type": /json/}},
+//     {url: ['/getResult'], statuscode: 200, header: {"content-Type": /json/}},
+//     {url: ['/js/main.js', '/css/style.css', 'js/functions.js'], statuscode: 200} 
+// ];
+
 test('teting the main "/" router', (done) => {
    supertest(router)
     .get('/')
@@ -68,7 +69,7 @@ test('testing final search result endpoint', (done) => {
 
 test('testing css ', (done) => {
     supertest(router)
-       .get('/css/style')
+       .get('/css/style.css')
        .expect(200)
        .expect("Content-Type" , /css/)
        .end((err, res) => {
@@ -80,7 +81,7 @@ test('testing css ', (done) => {
 
 test('testing functions ', (done) => {
     supertest(router)
-       .get('/js/functions')
+       .get('/js/functions.js')
        .expect(200)
        .expect("Content-Type" , /javascript/)
        .end((err, res) => {
