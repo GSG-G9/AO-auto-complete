@@ -103,3 +103,8 @@ button{
 .list div:hover{
     background: #FFC0C0;
 }
+
+main h1{
+    text-align:left;
+    color: #FEFFD9;
+}
