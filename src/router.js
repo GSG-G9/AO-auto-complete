@@ -6,7 +6,7 @@ const routes = {
   '/'   : handlers.mainHandler,
   '/main'   : handlers.mainHandler,
   '/getList': handlers.getListHandler,
-  // '/getResult': handlers.mainHandler,
+  '/getResult': handlers.getResultHandler,
   '404' : handlers.notFound,
 }
 

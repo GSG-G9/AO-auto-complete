@@ -2,7 +2,6 @@ var handlers = module.exports = {};
 
 const path = require('path');
 const fs = require('fs');
-const querystring = require('querystring')
 
 //GET: main rout '/, /main' handler
 handlers.mainHandler = (req,res)=>{
@@ -43,6 +42,8 @@ handlers.publicHandler = (req,res)=>{
       res.writeHead(200, {'Content-Type': extensions[ext] })
       res.end(file)
     });
+  }else{
+    _forbidden(req,res)
   }
 }
 
@@ -63,20 +64,40 @@ handlers.getListHandler = (req,res) => {
           res.writeHead(500, {'Content-Type': 'text/plain'});
           return res.end('Server ERROR');
         }  
-        res.writeHead(200,{'Content-Type': 'text/html'})
+        res.writeHead(200,{'Content-Type': 'application/json'})
+
         const inputVal = convertedData.inputVal.trim()
-        const dataArray= _filterInputResult (inputVal, JSON.parse(file))
+        const dataArray = _filterInputResult (inputVal, JSON.parse(file))
         res.end(JSON.stringify(dataArray.slice(0,7)))
-        // res.end(JSON.stringify(_filterInputResult (allData.inputVal, JSON.parse(file))))
       })
-      
     }) 
+  }else{
+    _forbidden(req,res)
+  }
+}
+
+handlers.getResultHandler =(req, res)=>{
+  if(req.method == "POST"){
+    let allData =""
+    // collect all data shanks
+    req.on('data', (chunkData) =>{
+      allData += chunkData;
+    });
+    // when the data get is done
+    req.on('end', () => {
+      const convertedData =JSON.parse(allData);
+      console.log(convertedData);
+      const inputVal = convertedData.inputVal.trim()
+      // console.log(inputVal);
+      res.writeHead(200,{'Content-Type': 'application/json'})
+      res.end(JSON.stringify({Result:`The word is ${inputVal}`}))
+    })
   }
 }
 
 handlers.notFound = (req,res) => {
-    res.writeHead(404,'Page Not Found' ,{'Content-Type': 'text/html'});
-    res.end();
+    res.writeHead(404,{'Content-Type': 'text/html'});
+    res.end("<a href='/'>home</a><h1>404 Page Not Found</h1>");
 }
 
 const _forbidden = (req,res) =>{
