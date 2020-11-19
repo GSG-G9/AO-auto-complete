@@ -58,7 +58,6 @@ handlers.getListHandler = (req,res) => {
     // when the data get is done
     req.on('end', () => {
       const convertedData =JSON.parse(allData);
-      // console.log({convertedData});
       fs.readFile(path.join(__dirname,'data.json'), 'utf8', (err,file) =>{
         if (err) {
           res.writeHead(500, {'Content-Type': 'text/plain'});
@@ -66,6 +65,7 @@ handlers.getListHandler = (req,res) => {
         }  
         res.writeHead(200,{'Content-Type': 'application/json'})
 
+        // filter Input
         const inputVal = convertedData.inputVal.trim()
         const dataArray = _filterInputResult (inputVal, JSON.parse(file))
         res.end(JSON.stringify(dataArray.slice(0,7)))
@@ -86,12 +86,12 @@ handlers.getResultHandler =(req, res)=>{
     // when the data get is done
     req.on('end', () => {
       const convertedData =JSON.parse(allData);
-      console.log(convertedData);
       const inputVal = convertedData.inputVal.trim()
-      // console.log(inputVal);
       res.writeHead(200,{'Content-Type': 'application/json'})
       res.end(JSON.stringify({Result:`The word is ${inputVal}`}))
     })
+  }else{
+    _forbidden(req,res)
   }
 }
 
@@ -109,9 +109,3 @@ const _filterInputResult = (inputVal, dataArray)=>{
   if(!inputVal) return []
   return dataArray.filter((item)=>item.toLowerCase().includes(inputVal.toLowerCase()))
 }
-
-// module.exports = {
-//     mainHandler,
-//     publicHandler,
-//     getListHandler
-// } 

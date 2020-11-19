@@ -11,7 +11,6 @@ const autoCompleteInput = (InputNode) => {
 
     fetch.post('/getList',{inputVal},(err,data)=>{
       if(err) return err
-      console.log(data);
       const resalesArray = data // /*send input val than get the data */ ["sad", "sad"];
       resalesArray.forEach((re) => {
         const item = document.createElement("div");
@@ -34,7 +33,6 @@ const callList = (callback) => {
 
 const removeOldList = () => {
   callList((list) => {
-    console.log(list.parentNode);
     list.parentNode.removeChild(list);
   });
 };
@@ -54,10 +52,12 @@ const showedList = () => { //NoT Used yet
 };
 
 const calLResult = (callback) => {
-  let resultNode = document.querySelector(".Result ");
+  let resultNode = document.querySelector(".Result-con ");
+
   if (resultNode == null){
-    resultNode = document.createElement("h1");
-    document.querySelector("main").appendChild(resultNode)
+    resultNode = document.createElement("div");
+    resultNode.classList.add("Result-con")
+    document.querySelector("form").appendChild(resultNode)
   } 
   callback(resultNode)
 }
@@ -71,7 +71,9 @@ const calLResult = (callback) => {
     fetch.post('/getResult',{inputVal: document.querySelector(".input-contener input").value},(err, data)=>{
       if(err) return
       calLResult((resultNode)=>{
-        resultNode.textContent = data.Result
+        const resultNodeH = document.createElement("h1")
+        resultNodeH.textContent = data.Result
+        resultNode.appendChild(resultNodeH)
       })
     })
   })

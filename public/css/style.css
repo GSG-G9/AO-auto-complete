@@ -108,3 +108,8 @@ main h1{
     text-align:left;
     color: #FEFFD9;
 }
+form{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+}
