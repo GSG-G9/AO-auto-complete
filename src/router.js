@@ -1,34 +1,30 @@
-const { reset } = require("nodemon");
 const path = require('path');
-const fs = require('fs');
+const handlers = require('./handler')
 
+
+const routes = {
+  '/'   : handlers.mainHandler,
+  '/main'   : handlers.mainHandler,
+  '/getList': handlers.getListHandler,
+  '/getResult': handlers.getResultHandler,
+  '404' : handlers.notFound,
+}
+
+// router function
 const router = (req, res) => {
-    const url = req.url;
-    const ext = path.extname(url);
-    const extentions ={
-        '.css' :'text/css',
-        '.js' : 'text/javascript'
-    };
-    if(url === '/' || url === '/main'){
-        res.writeHead(200, {"Content-Type" : 'text/html'});
-        res.end();
-    } else if(ext){
-        fs.readFile(path.join(__dirname,'..', 'public', url), 'utf8', (err,file) =>{
-            if (err) {
-                res.writeHead(500, {"Content-Type": 'text/plain'});
-                return res.end('Server ERROR');
-            }
-            res.writeHead(200, {"Content-Type": extentions[ext] })
-            res.end(file)
-        });
+ 
+  const url = req.url;
+  const ext = path.extname(url); 
 
-    }
-    else{
-        res.writeHead(404,"Page Not Found" ,{"Content-Type": 'text/html'});
-        res.end();
-    }
+  if(ext) routes[url] = handlers.publicHandler 
+
+  if (routes[url]) {
+    routes[url](req, res);
+  } else {
+    routes[404](req, res);
+  }	
+
 };
-
 
 module.exports = { 
     router
