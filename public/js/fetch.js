@@ -1,5 +1,6 @@
 const fetch = (() => {
   const _fetch = (method, url, data, callback) => {
+    console.log("hi");
     const xhr = new XMLHttpRequest();
     const dataString = JSON.stringify(data);
 
@@ -26,8 +27,15 @@ const fetch = (() => {
     _fetch("POST", url, data, cb);
   };
 
-  return (fetch = {
+  return ({
     get,
     post,
   });
 })();
+
+if(typeof module != "undefined"){
+  module.exports={
+    fetch,
+  }
+}
+

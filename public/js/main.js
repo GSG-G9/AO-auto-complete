@@ -1,3 +1,4 @@
+// auto Input Complete
 const autoCompleteInput = (InputNode) => {
   let inputVal = "";
   InputNode.addEventListener("input", (event) => {
@@ -8,16 +9,21 @@ const autoCompleteInput = (InputNode) => {
     list.classList.add("list");
     InputNode.parentNode.appendChild(list);
 
-    const resalesArray = /*send input val than get the data */ ["sad", "sad"];
-    resalesArray.forEach((re) => {
-      const item = document.createElement("div");
-      item.textContent = re;
-      list.appendChild(item);
-      item.addEventListener("click", (event) => {
-        InputNode.value = item.textContent;
-        removeOldList();
-      })
-    });
+    fetch.post('/getList',{inputVal},(err,data)=>{
+      if(err) return err
+      console.log(data);
+      const resalesArray = data // /*send input val than get the data */ ["sad", "sad"];
+      resalesArray.forEach((re) => {
+        const item = document.createElement("div");
+        item.textContent = re;
+        list.appendChild(item);
+        item.addEventListener("click", (event) => {
+          InputNode.value = item.textContent;
+          removeOldList();
+        })
+      });
+    })
+   
   });
 };
 
@@ -39,12 +45,34 @@ const displayList = (val) => {
   });
 };
 
-const hidedList = () => {
+const hidedList = () => { //NoT Used yet
   displayList("none");
 };
 
-const showedList = () => {
+const showedList = () => { //NoT Used yet
   displayList("block");
 };
 
-autoCompleteInput(document.querySelector(".input-contener input"));
+const calLResult = (callback) => {
+  let resultNode = document.querySelector(".Result ");
+  if (resultNode == null){
+    resultNode = document.createElement("h1");
+    document.querySelector("main").appendChild(resultNode)
+  } 
+  callback(resultNode)
+}
+
+// onStart
+(()=>{
+  autoCompleteInput(document.querySelector(".input-contener input"));
+  document.querySelector('form').addEventListener("submit",(e)=>{
+    e.preventDefault();
+    console.dir(e.target.elements[0].va);
+    fetch.post('/getResult',{inputVal: document.querySelector(".input-contener input").value},(err, data)=>{
+      if(err) return
+      calLResult((resultNode)=>{
+        resultNode.textContent = data.Result
+      })
+    })
+  })
+})()  
