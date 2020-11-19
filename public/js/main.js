@@ -11,7 +11,6 @@ const autoCompleteInput = (InputNode) => {
 
     fetch.post('/getList',{inputVal},(err,data)=>{
       if(err) return err
-      console.log(data);
       const resalesArray = data // /*send input val than get the data */ ["sad", "sad"];
       resalesArray.forEach((re) => {
         const item = document.createElement("div");
@@ -34,7 +33,6 @@ const callList = (callback) => {
 
 const removeOldList = () => {
   callList((list) => {
-    console.log(list.parentNode);
     list.parentNode.removeChild(list);
   });
 };

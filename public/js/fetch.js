@@ -1,6 +1,5 @@
 const fetch = (() => {
   const _fetch = (method, url, data, callback) => {
-    console.log("hi");
     const xhr = new XMLHttpRequest();
     const dataString = JSON.stringify(data);
 
