@@ -1,0 +1,105 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(63.82deg, #324899 13.07%, #D80303 115.72%);
+    font-family: Roboto;
+    text-align: center;
+}
+
+/* Logo */
+header h1{    
+    margin: 0 auto;
+    padding: 100px 0 20px;
+    width: 388px;
+    font-weight: bold;
+    font-size: 64px;
+    -webkit-text-stroke: 1px #242771;
+    color: white;
+    text-shadow:
+        3px 3px 0 #242771,
+      -1px -1px 0 #242771,  
+       1px -1px 0 #242771,
+       -1px 1px 0 #242771,
+        1px 1px 0 #242771;
+}
+
+/* description */
+main p{
+    margin: 0 auto;
+    padding: 30px 0 20px;
+    font-weight: normal;
+    font-size: 26px;
+    width: 830px;
+    color: #FEFFD9;
+}
+
+/* form style */
+form{   
+    padding: 40px 0 20px;
+}
+
+.input-contener input{
+    background: #FFECEC;
+    border: 5px solid #FFA9A9;
+    box-sizing: border-box;
+    border-radius: 8px;
+    height: 70px;
+
+    width: 767px;
+    /* text */
+    font-style: normal;
+    font-weight: normal;
+    font-size: 38px;
+    line-height: 45px;
+    text-align: center;
+    
+    color: #555C75;
+    
+}
+
+button{
+    position: absolute;
+    width: 208px;
+    height: 64px;
+    margin-top:20px;
+    background: #233A50;
+    border: 3px solid rgba(214, 12, 61, 0.21);
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    /* text */
+    font-style: normal;
+    font-weight: bold;
+    font-size: 38px;
+    color: #FFDFDF;
+
+    top: 493px;
+    right: 852px;
+}   
+
+.list{
+    position: relative;
+    top: -5px;
+    margin: 0 auto;
+    width: 756px;
+    z-index: 2;
+}
+
+.list div{
+    background: #FFF8F8;
+    height: 54px;
+
+    /* text */
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 191.5%;
+
+    color: #555C75;
+
+    z-index: 4;
+}
+
+.list div:hover{
+    background: #FFC0C0;
+}
